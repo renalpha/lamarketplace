@@ -13,6 +13,7 @@ class CreateMarketplaceAdvertisementsTable extends Migration
             $column->integer('category_id')->index()->nullable();
             $column->integer('user_id')->index();
             $column->string('title')->nullable();
+            $column->string('filename')->nullable();
             $column->text('content',4294967295); //longtext for summernote supported images
             $column->timestamps();
         });
