@@ -11,9 +11,9 @@ class UserService
     {
         try {
             // already have validated existing user, but we want to do that again
-            $user = User::where('username', '=', $input->username)->first();
+            $user = User::where('email', '=', $input->email)->first();
             if (isset($user)) {
-                return ['status' => false, 'message' => trans('marketplace::user.user_already_exists',['username' => $input->username])];
+                return ['status' => false, 'message' => trans('marketplace::user.user_already_exists',['username' => $input->email])];
             }
 
             $input->merge(['name' => ucfirst($input->first_name) . ' ' . $input->last_name]);
@@ -32,7 +32,7 @@ class UserService
 
     public function login($request = null)
     {
-        if (\Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+        if (\Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
             // Authentication passed...
             return true;
@@ -43,7 +43,7 @@ class UserService
 
     public function requestPassword($request = null)
     {
-        $user = User::where('username', $request->username)->first();
+        $user = User::where('email', $request->email)->first();
 
         if(isset($user))
         {
@@ -52,6 +52,6 @@ class UserService
             return ['status' => true, 'message' => trans('marketplace::user.confirmation_send_successfully')];
         }
 
-        return ['status' => false, 'message' => trans('marketplace::user.user_not_exists', ['username' => $request->username])];
+        return ['status' => false, 'message' => trans('marketplace::user.user_not_exists', ['email' => $request->email])];
     }
 }

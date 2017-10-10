@@ -1,7 +1,7 @@
 
 <!-- REGISTRATION FORM -->
 <div class="text-center" style="padding:50px 0">
-    <div class="logo">register</div>
+    <div class="logo">{{ __('marketplace::user.register') }}</div>
     <!-- Main Form -->
     <div class="login-form-1">
         <form id="register-form" class="text-left">
@@ -9,21 +9,21 @@
             <div class="main-login-form">
                 <div class="login-group">
                     <div class="form-group">
-                        <label for="reg_username" class="sr-only">Email address</label>
-                        <input type="text" class="form-control" id="reg_username" name="reg_username" placeholder="username">
+                        <label for="reg_username" class="sr-only">{{ __('marketplace::user.username') }}</label>
+                        <input type="text" class="form-control" id="reg_username" name="reg_username" placeholder="{{ __('marketplace::user.username') }}">
                     </div>
                     <div class="form-group">
-                        <label for="reg_password" class="sr-only">Password</label>
-                        <input type="password" class="form-control" id="reg_password" name="reg_password" placeholder="password">
+                        <label for="reg_password" class="sr-only">{{ __('marketplace::user.password') }}</label>
+                        <input type="password" class="form-control" id="reg_password" name="reg_password" placeholder="{{ __('marketplace::user.password') }}">
                     </div>
                     <div class="form-group">
-                        <label for="reg_password_confirm" class="sr-only">Password Confirm</label>
-                        <input type="password" class="form-control" id="reg_password_confirm" name="reg_password_confirm" placeholder="confirm password">
+                        <label for="reg_password_confirm" class="sr-only">{{ __('marketplace::user.password_confirmation') }}</label>
+                        <input type="password" class="form-control" id="reg_password_confirm" name="reg_password_confirm" placeholder="{{ __('marketplace::user.password_confirmation') }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="reg_email" class="sr-only">Email</label>
-                        <input type="text" class="form-control" id="reg_email" name="reg_email" placeholder="email">
+                        <label for="reg_email" class="sr-only">{{ __('marketplace::user.email') }}</label>
+                        <input type="text" class="form-control" id="reg_email" name="reg_email" placeholder="{{ __('marketplace::user.email') }}">
                     </div>
                     <div class="form-group">
                         <label for="reg_fullname" class="sr-only">Full Name</label>

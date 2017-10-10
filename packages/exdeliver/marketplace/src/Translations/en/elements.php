@@ -8,4 +8,5 @@ return [
     'topic' => 'Topic',
     'posts' => 'Posts',
     'last_post' => 'Last post',
+    'click_here' => 'Click here',
 ];

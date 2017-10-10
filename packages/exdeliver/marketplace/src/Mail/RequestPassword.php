@@ -1,10 +1,12 @@
-<?php namespace Exdeliver\Marketplace\Mail;
+<?php
 
-use App\User;
+namespace Exdeliver\Marketplace\Mail;
+
 use Exdeliver\Marketplace\Mail\FromConfiguration;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use App\User;
 use Illuminate\Queue\SerializesModels;
 
 class RequestPassword extends Mailable
