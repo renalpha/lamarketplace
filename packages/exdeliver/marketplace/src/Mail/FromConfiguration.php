@@ -1,4 +1,6 @@
-<?php namespace Exdeliver\Marketplace\Mail;
+<?php
+
+namespace Exdeliver\Marketplace\Mail;
 
 class FromConfiguration{
 

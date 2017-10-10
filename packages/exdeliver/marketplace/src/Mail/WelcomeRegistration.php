@@ -1,4 +1,6 @@
-<?php namespace Exdeliver\Marketplace\Mail;
+<?php
+
+namespace Exdeliver\Marketplace\Mail;
 
 use App\User;
 use Exdeliver\Marketplace\Mail\FromConfiguration;
