@@ -1,6 +1,8 @@
 <?php
 
-Route::group(['namespace' => 'Exdeliver\Marketplace\Controllers'],function () {
-    Route::get('/admin', 'MarketplaceAdminController@getLogin');
+Route::group(['middleware' => 'web'], function () {
+    require __DIR__ . '/Routes/Admin/auth.php';
+    require __DIR__ . '/Routes/Admin/marketplace.php';
 });
+
 

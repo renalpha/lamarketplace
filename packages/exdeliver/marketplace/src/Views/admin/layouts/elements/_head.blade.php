@@ -6,4 +6,6 @@
 <!--<![endif]-->
 <head>
     {!! Html::style('css/app.css') !!}
+    {!! Html::style('admin/css/styles.css') !!}
+    {!! Html::style('admin/css/themes/theme-1.css') !!}
 </head>

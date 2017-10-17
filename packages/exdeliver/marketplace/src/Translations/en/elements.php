@@ -9,4 +9,6 @@ return [
     'posts' => 'Posts',
     'last_post' => 'Last post',
     'click_here' => 'Click here',
+    'categories' => 'Categories',
+    'category' => 'Category',
 ];

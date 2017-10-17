@@ -3,10 +3,30 @@
 namespace Exdeliver\Marketplace\Controllers;
 
 use App\Http\Controllers\Controller;
+use Exdeliver\Marketplace\Requests\LoginFormRequest;
+use Exdeliver\Marketplace\Services\UserService;
 use Illuminate\Http\Request;
 
 class MarketplaceAdminController extends Controller
 {
+
+    private $userservice;
+
+    public function __construct()
+    {
+        $this->userservice = new UserService();
+    }
+
+    public function getDashboard()
+    {
+        if (!\Auth::check()) {
+            return redirect()
+                ->to('/admin/login');
+        }
+
+        return view('marketplace::admin.auth.dashboard');
+    }
+
     /**
      * Get admin authentication login page
      * @return mixed
@@ -28,16 +48,37 @@ class MarketplaceAdminController extends Controller
     /**
      * Perform post login
      */
-    public function login()
+    public function login(LoginFormRequest $request)
     {
+        $result = $this->userservice->login($request);
 
+        if($result === false)
+        {
+            return redirect()
+                ->back()
+                ->withErrors(trans('marketplace::user.invalid_login'));
+        }
+
+
+        return redirect()
+            ->to('/admin')
+            ->with('status', trans('marketplace::user.logged_in'));
     }
 
     /**
      * Perform post register
      */
-    public function register()
+    public function register($request)
     {
+        $result = $this->userservice->register($request);
+    }
 
+    public function logout()
+    {
+        \Auth::logout();
+
+        return redirect()
+            ->to('/admin/login')
+            ->with('status', trans('marketplace::user.logged_out'));
     }
 }
