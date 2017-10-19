@@ -5,7 +5,7 @@
 Route::group(['prefix' => 'admin', 'namespace' => 'Exdeliver\Marketplace\Controllers'], function () {
     Route::group(['prefix' => 'marketplace'], function () {
         Route::group(['prefix' => 'categories'], function () {
-            Route::get('/overview', 'MarketplaceCategoriesController@getList');
+            Route::get('/overview', 'MarketplaceCategoriesController@oindex');
             Route::get('/new', 'MarketplaceCategoriesController@getNew');
             Route::get('/edit/{id}', 'MarketplaceCategoriesController@getEdit');
             Route::get('/remove/{id}', 'MarketplaceCategoriesController@remove');

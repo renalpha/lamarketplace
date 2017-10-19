@@ -14,7 +14,7 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
 
     public function __construct()
     {
-        $this->categories_repository = MarketplaceService::getModel(new MarketplaceCategories());
+        $this->categories_repository = \MarketplaceService::getModel(new MarketplaceCategories());
     }
     /**
      * Show categories overview
@@ -25,6 +25,11 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
 
         return view('marketplace::admin.modules.categories.index')
             ->with('categories', $categories);
+    }
+
+    public function getNew()
+    {
+        return view('marketplace::admin.modules.categories.new');
     }
 
     public function detail($id = null)

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @include('marketplace::admin.layouts.elements._head')
 <body>
 

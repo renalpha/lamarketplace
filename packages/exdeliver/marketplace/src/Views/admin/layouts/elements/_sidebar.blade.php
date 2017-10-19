@@ -7,7 +7,7 @@
             </div>
             <ul class="main-navigation-menu">
                 <li class="active open">
-                    <a href="index.html">
+                    <a href="/admin/">
                         <div class="item-content">
                             <div class="item-media">
                                 <i class="ti-home"></i>
@@ -32,12 +32,12 @@
                     </a>
                     <ul class="sub-menu">
                         <li>
-                            <a href="/admin/categories/overview">
+                            <a href="/admin/marketplace/categories/overview">
                                 <span class="title"> {{ trans('marketplace::elements.overview') }} </span>
                             </a>
                         </li>
                         <li>
-                            <a href="/admin/categories/create">
+                            <a href="/admin/marketplace/categories/create">
                                 <span class="title"> {{ trans('marketplace::elements.create') }} </span>
                             </a>
                         </li>
