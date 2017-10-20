@@ -8,5 +8,36 @@
 @stop
 
 @section('content')
-    Foobar
+    <table class="table">
+        <tr>
+            <thead>
+            <th>{!! trans('marketplace::elements.id') !!}</th>
+            <th>{!! trans('marketplace::elements.title') !!}</th>
+            <th>{!! trans('marketplace::elements.creaated_at') !!}</th>
+            <th>{!! trans('marketplace::elements.updated_at') !!}</th>
+            <th>{!! trans('marketplace::elements.manage') !!}</th>
+            </thead>
+        </tr>
+        @if(isset($categories) && count($categories) > 0)
+            @foreach($categories as $category)
+                <tr>
+                    <td>
+                        {!! $category->id !!}
+                    </td>
+                    <td>
+                        {!! $category->title !!}
+                    </td>
+                    <td>
+                        {!! date('d-m-Y H:i', strtotime($category->created_at)) !!}
+                    </td>
+                    <td>
+                        {!! date('d-m-Y H:i', strtotime($category->created_at)) !!}
+                    </td>
+                    <td>
+                        Manage btns
+                    </td>
+                </tr>
+            @endforeach
+        @endif
+    </table>
 @stop
