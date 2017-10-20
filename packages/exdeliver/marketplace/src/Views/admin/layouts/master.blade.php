@@ -1,8 +1,15 @@
 <!DOCTYPE html>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @include('marketplace::admin.layouts.elements._head')
 <body>
-@include('marketplace::admin.layouts.elements._header')
-@yield('content')
+
+<div id="app">
+    @include('marketplace::admin.layouts.elements._sidebar')
+    <div class="app-content">
+        @include('marketplace::admin.layouts.elements._content')
+    </div>
+</div>
+
 @include('marketplace::admin.layouts.elements._scripts')
 </body>
 </html>

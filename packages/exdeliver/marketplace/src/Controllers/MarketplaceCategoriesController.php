@@ -1,4 +1,6 @@
-<?php namespace Exdeliver\Marketplace\Controllers;
+<?php
+
+namespace Exdeliver\Marketplace\Controllers;
 
 use App\Http\Controllers\Controller;
 
@@ -12,7 +14,7 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
 
     public function __construct()
     {
-        $this->categories_repository = MarketplaceService::getModel(new MarketplaceCategories());
+        $this->categories_repository = \MarketplaceService::getModel(new MarketplaceCategories());
     }
     /**
      * Show categories overview
@@ -23,6 +25,11 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
 
         return view('marketplace::admin.modules.categories.index')
             ->with('categories', $categories);
+    }
+
+    public function getNew()
+    {
+        return view('marketplace::admin.modules.categories.new');
     }
 
     public function detail($id = null)
@@ -36,17 +43,24 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
 
         return redirect()->back()
             ->withErrors(trans('marketplace::categories.category_not_found'));
-
     }
 
     public function store(CategoriesFormRequest $request)
     {
         $category = $this->categories_repository->get($id);
-        if(isset($category))
-        {
 
+        if(!isset($category))
+        {
+            $category = new MarketplaceCategories();
+            $category->created_at = date('Y-m-d H:i:s');
         }
 
+        $category->updated_at = date('Y-m-d H:i:s');
+        $category->title = $request->title;
+        $category->slug = str_slug($request->title);
+        $category->description = $request->description;
+        $category->save();
 
+        //
     }
 }
