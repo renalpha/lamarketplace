@@ -13,6 +13,7 @@ class CreateMarketplaceCategoriesTable extends Migration
             $column->integer('parent_id')->index()->nullable();
             $column->integer('user_id')->index();
             $column->string('title')->nullable();
+            $column->string('slug');
             $column->string('filename')->nullable();
             $column->text('description',65535);
             $column->timestamps();

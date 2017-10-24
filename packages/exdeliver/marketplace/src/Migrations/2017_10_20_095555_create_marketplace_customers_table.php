@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMarketplaceCustomersTable extends Migration
+class CreateMarketplaceVendorsTable extends Migration
 {
     public function up()
     {
@@ -22,9 +22,12 @@ class CreateMarketplaceCustomersTable extends Migration
             $column->string('firstname');
             $column->string('lastname');
             $column->string('street');
-            $column->integer('street_number');
+            $column->string('street_number');
             $column->string('zipcode');
             $column->string('city');
+            $column->string('email')->nullable();
+            $column->string('phone')->nullable();
+            $column->string('mobile')->nullable();
             $column->timestamps();
         });
 
@@ -36,9 +39,12 @@ class CreateMarketplaceCustomersTable extends Migration
             $column->string('firstname');
             $column->string('lastname');
             $column->string('street');
-            $column->integer('street_number');
+            $column->string('street_number');
             $column->string('zipcode');
             $column->string('city');
+            $column->string('email')->nullable();
+            $column->string('phone')->nullable();
+            $column->string('mobile')->nullable();
             $column->timestamps();
         });
     }
@@ -46,5 +52,7 @@ class CreateMarketplaceCustomersTable extends Migration
     public function down()
     {
         Schema::drop('marketplace_customers');
+        Schema::drop('marketplace_customer_billing');
+        Schema::drop('marketplace_customer_shipping');
     }
 }

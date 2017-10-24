@@ -16,4 +16,14 @@ class MarketplaceVendors extends BaseModel{
     {
         return $this->belongsTo(new User());
     }
+
+    public function contact()
+    {
+        return $this->hasOne(new MarketplaceVendorInfo(), 'vendor_id');
+    }
+
+    public function advertisements()
+    {
+        return $this->hasMany(new MarketplaceAdvertisements());
+    }
 }

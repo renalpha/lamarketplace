@@ -15,21 +15,25 @@ class CreateMarketplaceCustomersTable extends Migration
 
         Schema::create('marketplace_vendor_info', function (Blueprint $column) {
             $column->increments('id')->unsigned();
-            $column->integer('customer_id')->index();
+            $column->integer('vendor_id')->index();
             $column->string('companyname')->nullable();
             $column->string('firstname');
             $column->string('lastname');
             $column->string('street');
-            $column->integer('street_number');
+            $column->string('street_number');
             $column->string('zipcode');
             $column->string('city');
             $column->string('country')->nullable();
+            $column->string('email')->nullable();
+            $column->string('phone')->nullable();
+            $column->string('mobile')->nullable();
             $column->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::drop('marketplace_customers');
+        Schema::drop('marketplace_vendors');
+        Schema::drop('marketplace_vendor_info');
     }
 }

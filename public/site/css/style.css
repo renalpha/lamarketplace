@@ -1,0 +1,77 @@
+.navbar-default {
+    background: #fff;
+    border: 0px solid #fff;
+}
+
+hr.purple{
+    color: #e7228d;
+    border: 2px solid;
+    margin: 0px 0px 20px 0px;
+}
+
+.purple {
+    color: #e7228d;
+}
+
+.namesoftware {
+    width: 210px;
+}
+
+nav {
+    margin: 15px 0 0 210px;
+}
+
+.banner-top {
+    border: 1px solid #000000;
+    padding: 20px;
+}
+
+.no-padding {
+    padding: 0px;
+}
+
+.categories li {
+    list-style-type: none;
+}
+.categories ul {
+    padding: 0;
+}
+
+.categories li a {
+    font-weight: bold;
+    color: #000;
+    list-style-type: none;
+    margin: 0 0 10px 0;
+}
+.categories li ul li a {
+    font-weight: normal;
+    color: #000;
+}
+
+.homes-list {
+    margin: 0 auto;
+    list-style-type: none;
+    width: 960px;
+    text-align: center;
+}
+
+.homes-list li {
+    padding: 10px;
+    font-family: helvetica;
+    color: #fff;
+    font-weight: lighter;
+    line-height: 28px;
+    margin: 2px;
+    padding: 10px 10px;
+    border-top: 1px solid #e7228d;
+    border-right: 1px solid #e7228d;
+    border-left: 1px solid #e7228d;
+    float: left;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: opacity 0.1s ease, padding 0.1s ease;
+}
+
+.clear {
+    clear:both;
+}
