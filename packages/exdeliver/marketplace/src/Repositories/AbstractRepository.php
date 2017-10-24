@@ -1,4 +1,6 @@
-<?php namespace Exdeliver\Marketplace\Repositories;
+<?php
+
+namespace Exdeliver\Marketplace\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 

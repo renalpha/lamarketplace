@@ -9,11 +9,11 @@ class MarketplaceService
 {
     public function getModel($model)
     {
-        return DynamicModelRepository($model);
+        return new DynamicModelRepository($model);
     }
 
     public function getCategories()
     {
-        return $this->getModel(new MarketplaceCategories())->getAll();
+        return $this->getModel(new MarketplaceCategories());
     }
 }

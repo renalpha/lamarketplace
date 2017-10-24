@@ -1,4 +1,6 @@
-<?php namespace Exdeliver\Marketplace\Repositories\Interfaces;
+<?php
+
+namespace Exdeliver\Marketplace\Repositories\Interfaces;
 
 interface AbstractRepositoryInterface
 {

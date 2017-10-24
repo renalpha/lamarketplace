@@ -1,4 +1,6 @@
-<?php namespace Exdeliver\Marketplace\Repositories;
+<?php
+
+namespace Exdeliver\Marketplace\Repositories;
 
 class DynamicModelRepository extends AbstractRepository
 {

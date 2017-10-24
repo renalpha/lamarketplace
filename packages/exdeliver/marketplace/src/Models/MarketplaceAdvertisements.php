@@ -2,6 +2,8 @@
 
 namespace Exdeliver\Marketplace\Models;
 
+use App\User;
+
 class MarketplaceAdvertisements extends BaseModel
 {
 
@@ -38,5 +40,15 @@ class MarketplaceAdvertisements extends BaseModel
         }
 
         return;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(new User());
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(new MarketplaceVendors());
     }
 }

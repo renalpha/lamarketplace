@@ -13,6 +13,11 @@ class MarketplaceCategories extends BaseModel
      */
     public function advertisements()
     {
-        return $this->hasMany(new MarketplaceAdvertisements());
+        return $this->hasMany(new MarketplaceAdvertisements(), 'category_id');
+    }
+
+    public function childs()
+    {
+        return $this->hasMany(new MarketplaceCategories(), 'parent_id');
     }
 }
