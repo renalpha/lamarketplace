@@ -19,11 +19,11 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
     /**
      * Show categories overview
      */
-    public function index()
+    public function getList()
     {
         $categories = $this->categories_repository->getAll();
 
-        return view('marketplace::admin.modules.categories.index')
+        return view('marketplace::admin.modules.marketplace.categories.list')
             ->with('categories', $categories);
     }
 
@@ -32,12 +32,12 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
         return view('marketplace::admin.modules.categories.new');
     }
 
-    public function detail($id = null)
+    public function getEdit($id = null)
     {
         $category = $this->categories_repository->get($id);
         if(isset($category))
         {
-            return view('marketplace::categories.detail')
+            return view('marketplace::admin.modules.marketplace.categories.edit')
                 ->with('category', $category);
         }
 
@@ -47,7 +47,7 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
 
     public function store(CategoriesFormRequest $request)
     {
-        $category = $this->categories_repository->get($id);
+        $category = $this->categories_repository->get($request->id);
 
         if(!isset($category))
         {
@@ -61,6 +61,8 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
         $category->description = $request->description;
         $category->save();
 
-        //
+        return redirect()
+            ->back()
+            ->with('status', trans('marketplace::elements.saved_succesfully'));
     }
 }

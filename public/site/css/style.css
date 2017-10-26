@@ -75,3 +75,8 @@ nav {
 .clear {
     clear:both;
 }
+
+.search-nav {
+    margin: 10px 0;
+    padding-right: 0px;
+}

@@ -22,9 +22,10 @@
             </div>
             <div class="col-md-4">
                 <h3>Over de adverteerder</h3>
+                <hr class="purple" />
                 <div class="caption" class="pull-left">
                     <h4>
-                        <a href="#">{!! $advertisement->vendor->contact->full_name !!}</a>
+                        {!! $advertisement->vendor->contact->full_name !!}
                     </h4>
                     @if(isset($advertisement->vendor->contact->email) && $advertisement->vendor->contact->email != '')
                         <small><b>E-mail: </b>{!! $advertisement->vendor->contact->email !!}</small><br/>

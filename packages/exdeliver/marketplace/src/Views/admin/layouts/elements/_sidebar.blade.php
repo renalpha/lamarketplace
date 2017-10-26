@@ -43,6 +43,31 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="ti-settings"></i>
+                            </div>
+                            <div class="item-inner">
+                                <span class="title"> {{ trans('marketplace::elements.advertisements') }}</span> <i
+                                        class="fa fa-arrow-circle-o-right pull-right"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="/admin/marketplace/advertisements/overview">
+                                <span class="title"> {{ trans('marketplace::elements.overview') }} </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/marketplace/advertisements/create">
+                                <span class="title"> {{ trans('marketplace::elements.create') }} </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             <!-- end: MAIN NAVIGATION MENU -->
             <!-- start: CORE FEATURES -->
