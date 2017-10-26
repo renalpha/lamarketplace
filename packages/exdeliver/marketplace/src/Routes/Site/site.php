@@ -9,4 +9,11 @@ Route::group(['namespace' => 'Exdeliver\Marketplace\Controllers'], function () {
 
     Route::get('/{category}/advertisement/{slug}', 'MarketplaceSiteController@getAdvertisement');
 
+
+    Route::group(['prefix' => '/user'], function() {
+        Route::get('/login', 'MarketplaceSiteController@getLogin');
+        Route::post('/login', 'MarketplaceSiteController@login');
+        Route::get('/register', 'MarketplaceSiteController@getRegister');
+        Route::post('/register', 'MarketplaceSiteController@register');
+    });
 });

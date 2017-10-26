@@ -52,8 +52,7 @@ class MarketplaceAdminController extends Controller
     {
         $result = $this->userservice->login($request);
 
-        if($result === false)
-        {
+        if ($result === false) {
             return redirect()
                 ->back()
                 ->withErrors(trans('marketplace::user.invalid_login'));

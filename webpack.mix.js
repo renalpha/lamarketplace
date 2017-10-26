@@ -18,5 +18,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
 mix.copy('node_modules/font-awesome/fonts', 'public/fonts/vendor/font-awesome')
 mix.copy('node_modules/bootstrap', 'public/site/bootstrap')
+mix.copy('node_modules/jquery', 'public/jquery')
 mix.copy('node_modules/bootstrap-sass/assets/fonts', 'public/fonts/vendor/bootstrap-sass');
 
