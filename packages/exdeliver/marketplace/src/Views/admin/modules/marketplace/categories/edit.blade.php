@@ -10,7 +10,7 @@
 @stop
 
 @section('content')
-    {!! Form::model($category, ['url' => 'foobar']) !!}
+    {!! Form::model($category, ['method' => 'post']) !!}
     @include('marketplace::admin.modules.marketplace.categories.elements._category_form')
     {!! Form::close() !!}
 @stop

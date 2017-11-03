@@ -5,17 +5,21 @@ namespace Exdeliver\Marketplace\Controllers;
 use App\Http\Controllers\Controller;
 use Exdeliver\Marketplace\Models\MarketplaceAdvertisements;
 use Exdeliver\Marketplace\Models\MarketplaceCategories;
+use Exdeliver\Marketplace\Requests\AdvertisementFormRequest;
 use Exdeliver\Marketplace\Requests\LoginFormRequest;
-use Exdeliver\Marketplace\Services\UserService;
+use Exdeliver\Marketplace\Requests\RegisterCustomerFormRequest;
+use Exdeliver\Marketplace\Services\MarketplaceUserService;
 use Illuminate\Http\Request;
 
 class MarketplaceSiteController extends Controller
 {
     public $userservice;
+    public $advertisements_repository;
 
     public function __construct()
     {
-        $this->userservice = new UserService();
+        $this->advertisements_repository = \MarketplaceService::getModel(new MarketplaceAdvertisements());
+        $this->userservice = new MarketplaceUserService();
     }
 
     public function getHome()
@@ -78,9 +82,16 @@ class MarketplaceSiteController extends Controller
     /**
      * Perform post register
      */
-    public function register($request)
+    public function register(RegisterCustomerFormRequest $request)
     {
-        $result = $this->userservice->register($request);
+        $result = $this->userservice->save($request, ['role' => 'customer']);
+        if($result['status'] === true) {
+            $result = $this->userservice->registerCustomer($request, $result);
+        }
+
+        return redirect()
+            ->to('/')
+            ->with('status', trans('marketplace::auth.account_successfully_created'));
     }
 
     public function logout()
@@ -90,5 +101,52 @@ class MarketplaceSiteController extends Controller
         return redirect()
             ->to('/user/login')
             ->with('status', trans('marketplace::user.logged_out'));
+    }
+
+    public function getManageAdvertisement($advertisement_id = null, $category = null)
+    {
+        if (isset($advertisement_id)) {
+            return view('site.modules.marketplace.advertisements.edit');
+        }
+
+        return view('site.modules.marketplace.advertisements.create');
+    }
+
+    public function getNewAdvertisement()
+    {
+        return view('marketplace::site.modules.marketplace.advertisements.new');
+    }
+
+
+    public function storeAdvertisement(AdvertisementFormRequest $request)
+    {
+        $advertisement = $this->advertisements_repository->get($request->id);
+
+        if(!isset($advertisement))
+        {
+            $advertisement = new MarketplaceAdvertisements();
+            $advertisement->created_at = date('Y-m-d H:i:s');
+            $state = 'new';
+        }
+
+        $advertisement->user_id = \Auth::user()->id;
+        $advertisement->category_id = $request->category_id;
+        $advertisement->vendor_id = (isset($request->vendor_id)) ? $request->vendor_id : 1;
+        $advertisement->updated_at = date('Y-m-d H:i:s');
+        $advertisement->title = $request->title;
+        $advertisement->slug = str_slug($request->title);
+        $advertisement->content = $request->content;
+        $advertisement->save();
+
+        if(isset($state))
+        {
+            return redirect()
+                ->to($advertisement->category->slug.'/advertisement/'.$advertisement->slug)
+                ->with('status', trans('marketplace::elements.saved_succesfully'));
+        }
+
+        return redirect()
+            ->back()
+            ->with('status', trans('marketplace::elements.saved_succesfully'));
     }
 }

@@ -10,58 +10,68 @@
         <div class="row">
             <div class="col-md-8">
                 <h3>Aanmelden</h3>
-                <form id="register-form" class="text-left">
-                    <div class="login-form-main-message"></div>
-                    <div class="main-login-form">
-                        <div class="login-group">
-                            <div class="form-group">
-                                <label for="reg_username" class="sr-only">{{ __('marketplace::user.username') }}</label>
-                                <input type="text" class="form-control" id="reg_username" name="reg_username"
-                                       placeholder="{{ __('marketplace::user.username') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="reg_password" class="sr-only">{{ __('marketplace::user.password') }}</label>
-                                <input type="password" class="form-control" id="reg_password" name="reg_password"
-                                       placeholder="{{ __('marketplace::user.password') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="reg_password_confirm"
-                                       class="sr-only">{{ __('marketplace::user.password_confirmation') }}</label>
-                                <input type="password" class="form-control" id="reg_password_confirm"
-                                       name="reg_password_confirm"
-                                       placeholder="{{ __('marketplace::user.password_confirmation') }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="reg_email" class="sr-only">{{ __('marketplace::user.email') }}</label>
-                                <input type="text" class="form-control" id="reg_email" name="reg_email"
-                                       placeholder="{{ __('marketplace::user.email') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="reg_fullname" class="sr-only">Full Name</label>
-                                <input type="text" class="form-control" id="reg_fullname" name="reg_fullname"
-                                       placeholder="full name">
-                            </div>
-
-                            <div class="form-group login-group-checkbox">
-                                <input type="radio" class="" name="reg_gender" id="male" placeholder="username">
-                                <label for="male">male</label>
-
-                                <input type="radio" class="" name="reg_gender" id="female" placeholder="username">
-                                <label for="female">female</label>
-                            </div>
-
-                            <div class="form-group login-group-checkbox">
-                                <input type="checkbox" class="" id="reg_agree" name="reg_agree">
-                                <label for="reg_agree">i agree with <a href="#">terms</a></label>
-                            </div>
+                {!! Form::open(['method' => 'post', 'id' => 'registerForm']) !!}
+                <div class="form-group">
+                    <label>{!! trans('marketplace::elements.email') !!}</label>
+                    {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    <label>{!! trans('marketplace::elements.password') !!}</label>
+                    {!! Form::password('password', ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    <label>{!! trans('marketplace::elements.password_confirmation') !!}</label>
+                    {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label>{!! trans('marketplace::elements.firstname') !!}</label>
+                    {!! Form::text('first_name', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    <label>{!! trans('marketplace::elements.lastname') !!}</label>
+                    {!! Form::text('last_name', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label>{!! trans('marketplace::elements.street') !!}</label>
+                            {!! Form::text('street', null, ['class' => 'form-control']) !!}
                         </div>
-                        <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+                        <div class="col-md-4">
+                            <label>{!! trans('marketplace::elements.street_number') !!}</label>
+                            {!! Form::text('street_number', null, ['class' => 'form-control']) !!}
+                        </div>
                     </div>
-                    <div class="etc-login-form">
-                        <p>already have an account? <a href="#">login here</a></p>
-                    </div>
-                </form>
+                </div>
+                <div class="form-group">
+                    <label>{!! trans('marketplace::elements.zipcode') !!}</label>
+                    {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    <label>{!! trans('marketplace::elements.city') !!}</label>
+                    {!! Form::text('city', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    <label>{!! trans('marketplace::elements.country') !!}</label>
+                    <?php
+                    $country_list = ['nl' => 'Nederland', 'be' => 'Belgie/Belgique', 'de' => 'Deutschland'];
+                    ?>
+                    {!! Form::select('country', $country_list, 'nl', ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    <label>{!! trans('marketplace::elements.phone') !!}</label>
+                    {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    <label>{!! trans('marketplace::elements.mobile_phone') !!}</label>
+                    {!! Form::text('mobile', null, ['class' => 'form-control']) !!}
+                </div>
+                {!! Form::submit(trans('marketplace::auth.create_account'), ['class' => 'btn btn-success']) !!}
+                {!! Form::close() !!}
+                <div class="etc-login-form">
+                    <p>{!! trans('marketplace::auth.already_registered') !!}? <a href="/login">{!! trans('marketplace::elements.login') !!}</a></p>
+                </div>
             </div>
         </div>
     </div>

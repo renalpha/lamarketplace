@@ -37,7 +37,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/admin/marketplace/categories/create">
+                            <a href="/admin/marketplace/categories/new">
                                 <span class="title"> {{ trans('marketplace::elements.create') }} </span>
                             </a>
                         </li>
@@ -62,7 +62,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/admin/marketplace/advertisements/create">
+                            <a href="/admin/marketplace/advertisements/new">
                                 <span class="title"> {{ trans('marketplace::elements.create') }} </span>
                             </a>
                         </li>

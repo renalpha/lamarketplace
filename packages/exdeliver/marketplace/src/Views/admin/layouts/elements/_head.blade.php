@@ -8,4 +8,5 @@
     {!! Html::style('css/app.css') !!}
     {!! Html::style('admin/css/styles.css') !!}
     {!! Html::style('admin/css/themes/theme-1.css') !!}
+    {!! Html::style('summernote/dist/summernote.css') !!}
 </head>

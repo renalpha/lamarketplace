@@ -1,4 +1,4 @@
-@extends('marketplace::admin.layouts.master')
+@extends('marketplace::site.layouts.master')
 
 @section('title')
     @if(isset($content->title))
@@ -10,7 +10,7 @@
 @stop
 
 @section('content')
-    {!! Form::open() !!}
-    @include('marketplace::admin.modules.marketplace.categories.elements._category_form')
+    {!! Form::model($advertisement, ['class' => 'foobar']) !!}
+    @include('marketplace::admin.modules.marketplace.advertisements.elements._advertisement_form')
     {!! Form::close() !!}
 @stop

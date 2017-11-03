@@ -24,12 +24,13 @@
                             {!! Form::password('password', ['class' => 'form-control', 'id' => 'lg_password', 'placeholder' => __('marketplace::user.password')]) !!}
                         </div>
                     </div>
-                    {!! Form::button('<i class="fa fa-chevron-right"></i>',['type' => 'submit', 'class' => 'login-button']) !!}
+                    {!! Form::button('<i class="fa fa-chevron-right"></i> '.trans('marketplace::elements.login'),['type' => 'submit', 'class' => 'login-button btn btn-primary']) !!}
                 </div>
                 <div class="etc-login-form">
                     <p>{{ __('marketplace::user.forgot_account') }} <a
                                 href="#">{{ __('marketplace::elements.click_here') }}</a></p>
                 </div>
+                {!! Form::hidden('previous_url', \Request::get('previous-url')) !!}
                 {!! Form::close() !!}
             </div>
         </div>
