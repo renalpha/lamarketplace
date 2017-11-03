@@ -14,6 +14,16 @@ class MarketplaceService
 
     public function getCategories()
     {
-        return $this->getModel(new MarketplaceCategories());
+        $categories = $this->getModel(new MarketplaceCategories());
+        return $categories;
+    }
+
+    public function selectCategories($params = null)
+    {
+        $categories = $this->getCategories()->pluck('title','id')->toArray();
+        if (isset($params['selection'])) {
+            $categories[null] = trans('marketplace::elements.parent_category');
+        }
+        return $categories;
     }
 }

@@ -16,10 +16,10 @@
                 <div id="navbar" class="navbar-collapse collapse" style="padding-right: 0;">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="/">Home</a></li>
-                        <li><a href="/advertisement/new">Advertentie plaatsen</a></li>
+                        <li><a href="/advertisements/new">Advertentie plaatsen</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                               aria-haspopup="true" aria-expanded="false">@if(\Auth::check()) {!! \Auth::user()->name !!} @else Account @endif<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 @if(\Auth::check())
                                     <li><a href="/user/my-account">Account</a></li>

@@ -4,7 +4,7 @@ namespace Exdeliver\Marketplace\Controllers;
 
 use App\Http\Controllers\Controller;
 use Exdeliver\Marketplace\Requests\LoginFormRequest;
-use Exdeliver\Marketplace\Services\UserService;
+use Exdeliver\Marketplace\Services\MarketplaceUserService;
 use Illuminate\Http\Request;
 
 class MarketplaceAdminController extends Controller
@@ -14,7 +14,7 @@ class MarketplaceAdminController extends Controller
 
     public function __construct()
     {
-        $this->userservice = new UserService();
+        $this->userservice = new MarketplaceUserService();
     }
 
     public function getDashboard()
@@ -52,15 +52,16 @@ class MarketplaceAdminController extends Controller
     {
         $result = $this->userservice->login($request);
 
+        $previous_url = (isset($request->previous_url) && $request->previous_url != '') ? $request->previous_url : '/admin';
+
         if ($result === false) {
             return redirect()
                 ->back()
                 ->withErrors(trans('marketplace::user.invalid_login'));
         }
 
-
         return redirect()
-            ->to('/admin')
+            ->to($previous_url)
             ->with('status', trans('marketplace::user.logged_in'));
     }
 

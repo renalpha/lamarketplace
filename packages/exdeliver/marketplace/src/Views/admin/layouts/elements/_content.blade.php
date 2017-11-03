@@ -14,6 +14,7 @@
             <!-- end: DASHBOARD TITLE -->
             <!-- start: FEATURED BOX LINKS -->
             <div class="container-fluid container-fullw bg-white">
+                @include('marketplace::admin.layouts.elements._status_messages')
                 @yield('content')
             </div>
         </div>

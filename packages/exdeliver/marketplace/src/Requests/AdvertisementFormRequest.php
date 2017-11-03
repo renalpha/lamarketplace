@@ -7,8 +7,9 @@ class AdvertisementFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'content' => 'required'
+            'title'   => 'required',
+            'content' => 'required',
+            'slug'    => 'required|unique:marketplace_advertisements,slug,' . $this->route('id'),
         ];
     }
 

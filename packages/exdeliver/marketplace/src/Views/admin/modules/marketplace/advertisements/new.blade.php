@@ -1,3 +1,5 @@
+@extends('marketplace::admin.layouts.master')
+
 @section('title')
     @if(isset($content->title))
         <h1 class="mainTitle">{{ ucfirst($content->title) }}</h1>
@@ -9,6 +11,6 @@
 
 @section('content')
     {!! Form::open() !!}
-    @include('marketplace::modules.marketplace.categories.elements._advertisement_form')
+    @include('marketplace::admin.modules.marketplace.advertisements.elements._advertisement_form')
     {!! Form::close() !!}
 @stop
