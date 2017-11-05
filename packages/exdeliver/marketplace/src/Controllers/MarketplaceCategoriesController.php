@@ -57,7 +57,9 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
         $category->user_id = \Auth::user()->id;
         $category->updated_at = date('Y-m-d H:i:s');
         $category->title = $request->title;
-        $category->slug = str_slug($request->title);
+        if (isset($state)) {
+            $category->slug = str_slug($request->title);
+        }
         $category->description = $request->description;
         $category->save();
 

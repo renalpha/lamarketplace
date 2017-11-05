@@ -27,7 +27,8 @@ class MarketplaceUserService
             $user = new User();
             $user->name = $input->name;
             $user->email = $input->email;
-            $user->password = \Hash::make($input->user_password);
+
+            $user->password = $input->password;
             $user->save();
 
             return ['status' => true, 'user_id' => $result->id];
@@ -39,7 +40,7 @@ class MarketplaceUserService
 
     public function login($request = null)
     {
-        if (\Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (\Auth::attempt(['email' => $request->email, 'password' => $request->password], true)) {
 
             // Authentication passed...
             return true;

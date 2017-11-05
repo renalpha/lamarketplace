@@ -53,4 +53,5 @@ return [
     'saved_succesfully'     => 'Changes have been saved successfully',
     'name_does_not_exists'  => ':name does not exists',
     'create_new_name' => 'Create new :name',
+    'user' => 'User',
 ];

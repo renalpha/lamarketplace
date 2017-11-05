@@ -117,6 +117,25 @@ class MarketplaceSiteController extends Controller
         return view('marketplace::site.modules.marketplace.advertisements.new');
     }
 
+    public function getEditAdvertisement($advertisement_id = null)
+    {
+        $advertisement = $this->advertisements_repository->get($advertisement_id);
+
+        if($advertisement->user_id != \Auth::user()->id) {
+            return 'unauthorized';
+        }
+
+        if(!isset($advertisement))
+        {
+            return redirect()
+                ->back()
+                ->withErrors(trans('marketplace::elements.name_does_not_exists'));
+        }
+
+        return view('marketplace::site.modules.marketplace.advertisements.edit')
+            ->with('advertisement', $advertisement);
+    }
+
 
     public function storeAdvertisement(AdvertisementFormRequest $request)
     {
@@ -127,6 +146,11 @@ class MarketplaceSiteController extends Controller
             $advertisement = new MarketplaceAdvertisements();
             $advertisement->created_at = date('Y-m-d H:i:s');
             $state = 'new';
+        }else{
+            // update verify user
+            if($advertisement->user_id != \Auth::user()->id) {
+                return 'unauthorized';
+            }
         }
 
         $advertisement->user_id = \Auth::user()->id;
@@ -148,5 +172,20 @@ class MarketplaceSiteController extends Controller
         return redirect()
             ->back()
             ->with('status', trans('marketplace::elements.saved_succesfully'));
+    }
+
+    public function getRemoveAdvertisement($advertisement_id = null)
+    {
+        $advertisement = $this->advertisements_repository->get($advertisement_id);
+
+        if($advertisement->user_id != \Auth::user()->id) {
+            return 'unauthorized';
+        }
+
+        $advertisement->delete();
+
+        return redirect()
+            ->to('/')
+            ->with('status', trans('marketplace::name_has_been_deleted'));
     }
 }

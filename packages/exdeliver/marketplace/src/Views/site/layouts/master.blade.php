@@ -32,6 +32,7 @@
     {!! Html::style('site/css/style.css') !!}
     {!! Html::script('jquery/dist/jquery.min.js') !!}
     {!! Html::script('site/bootstrap/dist/js/bootstrap.min.js') !!}
+    {!! Html::style('summernote/dist/summernote.css') !!}
 </head>
 <body>
 <div class="container">
@@ -63,5 +64,11 @@
         </div>
     </div>
 </footer>
+{!! Html::script('summernote/dist/summernote.min.js') !!}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.summernote').summernote();
+    });
+</script>
 </body>
 </html>

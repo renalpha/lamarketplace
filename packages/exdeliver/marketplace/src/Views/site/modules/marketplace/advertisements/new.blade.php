@@ -19,6 +19,9 @@
                         Hier kan uw advertentie komen te staan.
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <hr />
+                </div>
                 <div class="col-md-12 categories">
                     {!! Form::open() !!}
                     @include('marketplace::admin.modules.marketplace.advertisements.elements._advertisement_form')

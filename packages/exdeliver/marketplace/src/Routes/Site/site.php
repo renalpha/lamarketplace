@@ -1,22 +1,28 @@
 <?php
 
 Route::group(['namespace' => 'Exdeliver\Marketplace\Controllers'], function () {
+
     Route::get('/', 'MarketplaceSiteController@getHome');
 
     Route::group(['prefix' => 'category'], function() {
         Route::get('{slug}', 'MarketplaceSiteController@getCategory');
     });
 
-    Route::group(['prefix' => 'advertisements'], function() {
-        Route::get('new', 'MarketplaceSiteController@getNewAdvertisement');
-        Route::post('new', 'MarketplaceSiteController@storeAdvertisement');
+    Route::group(['middleware' => ['auth','web']], function() {
+        Route::group(['prefix' => 'advertisements'], function() {
+            Route::get('new', 'MarketplaceSiteController@getNewAdvertisement');
+            Route::post('new', 'MarketplaceSiteController@storeAdvertisement');
+            Route::get('edit/{advertisement_id}', 'MarketplaceSiteController@getEditAdvertisement');
+            Route::post('edit/{advertisement_id}', 'MarketplaceSiteController@storeAdvertisement');
+            Route::get('remove/{advertisement_id}', 'MarketplaceSiteController@getRemoveAdvertisement');
+        });
     });
 
     Route::get('/{category}/advertisement/{slug}', 'MarketplaceSiteController@getAdvertisement');
 
 
     Route::group(['prefix' => '/user'], function() {
-        Route::get('/login', 'MarketplaceSiteController@getLogin');
+        Route::get('/login', ['as' => 'login', 'uses' => 'MarketplaceSiteController@getLogin']);
         Route::post('/login', 'MarketplaceSiteController@login');
         Route::get('/register', 'MarketplaceSiteController@getRegister');
         Route::post('/register', 'MarketplaceSiteController@register');

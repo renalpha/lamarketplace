@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-md-12 categories">
                     <h2>{!! ucfirst($category->title) !!}</h2>
-                    <a href="/advertisements/new" class="pull-right btn btn-sm btn-primary">{!! trans('marketplace::elements.create_new_name', ['name' => trans('marketplace::elements.advertisement')]) !!}</a>
+                    <a href="/advertisements/new?category_id={!! $category->id !!}" class="pull-right btn btn-sm btn-primary">{!! trans('marketplace::elements.create_new_name', ['name' => trans('marketplace::elements.advertisement')]) !!}</a>
                     @if(count($category->childs) > 0)
                         <ul class="homes-list">
 
