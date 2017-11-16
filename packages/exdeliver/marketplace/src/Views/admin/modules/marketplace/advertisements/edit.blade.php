@@ -10,7 +10,11 @@
 @stop
 
 @section('content')
-    {!! Form::model($advertisement, ['class' => 'foobar']) !!}
+    {!! Form::model($advertisement, ['class' => 'foobar', 'files' => true]) !!}
+    <div class="form-group">
+        <label for="title">{{ trans('marketplace::elements.user') }}</label>
+        {!! Form::select('user_id', \MarketplaceService::selectUser(['selection' => true]), null, ['class' => 'form-control']) !!}
+    </div>
     @include('marketplace::admin.modules.marketplace.advertisements.elements._advertisement_form')
     {!! Form::close() !!}
 @stop

@@ -11,6 +11,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Exdeliver\Marketplace\Control
             Route::get('/edit/{id}', 'MarketplaceCategoriesController@getEdit');
             Route::post('/edit/{id}', 'MarketplaceCategoriesController@store');
             Route::get('/remove/{id}', 'MarketplaceCategoriesController@remove');
+            Route::get('/reorder', 'MarketplaceCategoriesController@reorder');
         });
 
         Route::group(['prefix' => 'advertisements'], function () {

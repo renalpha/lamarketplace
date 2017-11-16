@@ -4,7 +4,6 @@
  */
 Route::group(['prefix' => 'admin', 'namespace' => 'Exdeliver\Marketplace\Controllers'], function () {
 
-
     Route::group(['middleware' => 'Exdeliver\Marketplace\Middleware\MarketplaceMiddleware'], function () {
         Route::group(['middleware' => 'auth'], function() {
             Route::get('/', 'MarketplaceAdminController@getDashboard');

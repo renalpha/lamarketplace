@@ -17,12 +17,28 @@
                 </div>
                 <div class="col-md-12 categories">
                     <h4>{!! $advertisement->title !!}</h4>
+                    @if(isset($advertisement->price))
+                    <p><strong>Vraagprijs: &euro; {!! number_format($advertisement->price,2) !!}</strong></p>
+                    @endif
+                    <hr class="purple">
                     {!! $advertisement->content !!}
                 </div>
             </div>
             <div class="col-md-4">
+                @if(\Auth::check() && \Auth::user()->id == $advertisement->user_id)
+                    <div>
+                        <h3>Beheer</h3>
+                        <hr class="purple"/>
+                        <a href="/advertisements/remove/{!! $advertisement->id !!}"
+                           class="btn btn-sm btn-danger"><i
+                                    class="fa fa-remove"></i> {!! trans('marketplace::elements.remove') !!}</a>
+
+                        <a href="/advertisements/edit/{!! $advertisement->id !!}"
+                           class="btn btn-sm btn-danger">{!! trans('marketplace::elements.edit') . ' ' .trans('marketplace::elements.advertisement') !!}</a>
+                    </div>
+                @endif
                 <h3>Over de adverteerder</h3>
-                <hr class="purple" />
+                <hr class="purple"/>
                 <div class="caption" class="pull-left">
                     <h4>
                         {!! $advertisement->vendor->contact->full_name !!}

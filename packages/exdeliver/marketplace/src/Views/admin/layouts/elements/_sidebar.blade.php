@@ -61,11 +61,11 @@
                                 <span class="title"> {{ trans('marketplace::elements.overview') }} </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/admin/marketplace/advertisements/new">
-                                <span class="title"> {{ trans('marketplace::elements.create') }} </span>
-                            </a>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="/admin/marketplace/advertisements/new">--}}
+                                {{--<span class="title"> {{ trans('marketplace::elements.create') }} </span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     </ul>
                 </li>
             </ul>

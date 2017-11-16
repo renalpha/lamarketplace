@@ -38,7 +38,7 @@
                 {!! Form::button('<i class="fa fa-chevron-right"></i>',['type' => 'submit', 'class' => 'login-button']) !!}
             </div>
             <div class="etc-login-form">
-                <p>{{ __('marketplace::user.forgot_account') }} <a href="#">{{ __('marketplace::elements.click_here') }}</a></p>
+                <p>{{ __('marketplace::user.forgot_account') }} <a href="/user/request-password">{{ __('marketplace::elements.click_here') }}</a></p>
             </div>
             {!! Form::hidden('previous_url', \Request::get('previous-url')) !!}
         {!! Form::close() !!}

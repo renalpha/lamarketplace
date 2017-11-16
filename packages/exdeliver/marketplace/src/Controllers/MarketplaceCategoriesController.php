@@ -20,7 +20,7 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
      */
     public function getList()
     {
-        $categories = $this->categories_repository->getAll();
+        $categories = $this->categories_repository->whereNull('parent_id')->orderBy('priority')->getAll();
 
         return view('marketplace::admin.modules.marketplace.categories.list')
             ->with('categories', $categories);
@@ -54,11 +54,15 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
             $state = 'new';
         }
 
+        $category->parent_id = (isset($request->parent_id)) ? $request->parent_id : null;
         $category->user_id = \Auth::user()->id;
+        $category->priority = \Input::get('priority');
         $category->updated_at = date('Y-m-d H:i:s');
         $category->title = $request->title;
-        $category->slug = str_slug($request->title);
-        $category->description = $request->description;
+        if (isset($state)) {
+            $category->slug = str_slug($request->title);
+        }
+//        $category->description = $request->description;
         $category->save();
 
         if (isset($state)) {
@@ -79,5 +83,17 @@ class MarketplaceCategoriesController extends MarketplaceAdminController
         return redirect()
             ->back()
             ->with('status', trans('marketplace::elements.saved_succesfully'));
+    }
+
+    public function reorder()
+    {
+        $formData = \Request::get('formData');
+        $arrayData = explode(',', $formData);
+        $i = 0;
+        foreach ($arrayData as $listitem) {
+            $groupitem = MarketplaceCategories::where('id', '=', $listitem)->first();
+            $groupitem->priority = $i++;
+            $groupitem->save();
+        }
     }
 }

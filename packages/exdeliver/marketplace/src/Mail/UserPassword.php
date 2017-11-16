@@ -9,12 +9,13 @@ use Illuminate\Mail\Mailable;
 use App\User;
 use Illuminate\Queue\SerializesModels;
 
-class RequestPassword extends Mailable
+class UserPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $user;
     public $settings;
+    public $password;
 
     /**
      * The order instance.
@@ -31,8 +32,15 @@ class RequestPassword extends Mailable
     public function __construct(User $user)
     {
         $this->settings = new FromConfiguration();
+        $password = str_random(10);
+
+        $user = \App\User::findOrFail($user->id);
+        $user->password = \Hash::make($password);
+        $user->updated_at = date('Y-m-d H:i:s');
+        $user->save();
 
         $this->user = $user;
+        $this->password = $password;
     }
 
     /**
@@ -43,6 +51,6 @@ class RequestPassword extends Mailable
     public function build()
     {
         return $this->from($this->settings->config)
-            ->view('marketplace::emails.user.request_password');
+            ->view('marketplace::emails.user.user_password');
     }
 }

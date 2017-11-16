@@ -3,11 +3,14 @@
 namespace Exdeliver\Marketplace\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\User;
+use Exdeliver\Marketplace\Mail\UserPassword;
 use Exdeliver\Marketplace\Models\MarketplaceAdvertisements;
 use Exdeliver\Marketplace\Models\MarketplaceCategories;
 use Exdeliver\Marketplace\Requests\AdvertisementFormRequest;
 use Exdeliver\Marketplace\Requests\LoginFormRequest;
 use Exdeliver\Marketplace\Requests\RegisterCustomerFormRequest;
+use Exdeliver\Marketplace\Requests\RequestpasswordFormRequest;
 use Exdeliver\Marketplace\Services\MarketplaceUserService;
 use Illuminate\Http\Request;
 
@@ -85,8 +88,9 @@ class MarketplaceSiteController extends Controller
     public function register(RegisterCustomerFormRequest $request)
     {
         $result = $this->userservice->save($request, ['role' => 'customer']);
+
         if($result['status'] === true) {
-            $result = $this->userservice->registerCustomer($request, $result);
+            $result = $this->userservice->registerVendor($request, $result);
         }
 
         return redirect()
@@ -117,6 +121,25 @@ class MarketplaceSiteController extends Controller
         return view('marketplace::site.modules.marketplace.advertisements.new');
     }
 
+    public function getEditAdvertisement($advertisement_id = null)
+    {
+        $advertisement = $this->advertisements_repository->get($advertisement_id);
+
+        if($advertisement->user_id != \Auth::user()->id) {
+            return 'unauthorized';
+        }
+
+        if(!isset($advertisement))
+        {
+            return redirect()
+                ->back()
+                ->withErrors(trans('marketplace::elements.name_does_not_exists'));
+        }
+
+        return view('marketplace::site.modules.marketplace.advertisements.edit')
+            ->with('advertisement', $advertisement);
+    }
+
 
     public function storeAdvertisement(AdvertisementFormRequest $request)
     {
@@ -127,15 +150,22 @@ class MarketplaceSiteController extends Controller
             $advertisement = new MarketplaceAdvertisements();
             $advertisement->created_at = date('Y-m-d H:i:s');
             $state = 'new';
+        }else{
+            // update verify user
+            if($advertisement->user_id != \Auth::user()->id) {
+                return 'unauthorized';
+            }
         }
 
         $advertisement->user_id = \Auth::user()->id;
         $advertisement->category_id = $request->category_id;
-        $advertisement->vendor_id = (isset($request->vendor_id)) ? $request->vendor_id : 1;
+
+        $advertisement->vendor_id = \Auth::user()->vendor->first()->id;
         $advertisement->updated_at = date('Y-m-d H:i:s');
         $advertisement->title = $request->title;
         $advertisement->slug = str_slug($request->title);
         $advertisement->content = $request->content;
+        $advertisement->price = number_format($request->price,2);
         $advertisement->save();
 
         if(isset($state))
@@ -148,5 +178,46 @@ class MarketplaceSiteController extends Controller
         return redirect()
             ->back()
             ->with('status', trans('marketplace::elements.saved_succesfully'));
+    }
+
+    public function getRemoveAdvertisement($advertisement_id = null)
+    {
+        $advertisement = $this->advertisements_repository->get($advertisement_id);
+
+        if($advertisement->user_id != \Auth::user()->id) {
+            return 'unauthorized';
+        }
+
+        $advertisement->delete();
+
+        return redirect()
+            ->to('/')
+            ->with('status', trans('marketplace::name_has_been_deleted'));
+    }
+
+    public function getRequestPassword()
+    {
+        if(\Request::get('code') !== null && \Request::get('email') !== null) {
+            try {
+                $user = \App\User::where('email', '=', \Request::get('email'))->where('updated_at', '=', date('Y-m-d H:i:s', strtotime(\Request::get('code'))))->firstOrFail();
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+            }
+            \Mail::to($user->email)->send(new UserPassword($user));
+            return redirect()
+                ->to('/user/login')
+                ->with('status', 'marketplace::site.auth.new_password_send');
+        }
+        return view('marketplace::site.auth.request_password');
+    }
+
+    public function requestpassword(RequestpasswordFormRequest $request)
+    {
+        $result = $this->userservice->requestPassword($request);
+
+        return redirect()
+            ->back()
+            ->with('status', trans('marketplace::auth.password_requested'));
+
     }
 }

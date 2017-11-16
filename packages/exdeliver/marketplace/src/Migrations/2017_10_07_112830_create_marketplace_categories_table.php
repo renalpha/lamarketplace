@@ -12,6 +12,7 @@ class CreateMarketplaceCategoriesTable extends Migration
             $column->increments('id')->unsigned();
             $column->integer('parent_id')->index()->nullable();
             $column->integer('user_id')->index();
+            $column->integer('priority')->nullable();
             $column->string('title')->nullable();
             $column->string('slug');
             $column->string('filename')->nullable();

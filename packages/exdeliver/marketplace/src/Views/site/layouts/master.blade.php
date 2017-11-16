@@ -32,6 +32,7 @@
     {!! Html::style('site/css/style.css') !!}
     {!! Html::script('jquery/dist/jquery.min.js') !!}
     {!! Html::script('site/bootstrap/dist/js/bootstrap.min.js') !!}
+    {!! Html::style('summernote/dist/summernote.css') !!}
 </head>
 <body>
 <div class="container">
@@ -63,5 +64,32 @@
         </div>
     </div>
 </footer>
+{!! Html::script('summernote/dist/summernote.min.js') !!}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.summernote').summernote({
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ],
+        });
+
+        $(".parent-category").mouseenter(function(event)
+        {
+            event.stopPropagation();
+            $(this).find('ul').toggle();
+        }).mouseleave(function(event)
+        {
+            event.stopPropagation();2
+            $(this).find('ul').toggle();
+        });
+    });
+</script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 namespace Exdeliver\Marketplace\Middleware;
 
 use Closure;
+use Exdeliver\Marketplace\Models\MarketplaceUsersRoles;
 use Illuminate\Contracts\Auth\Guard;
 
 class MarketplaceMiddleware
@@ -38,12 +39,25 @@ class MarketplaceMiddleware
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
+
+
                 $previous_url = url()->current();
                 $previous_url = (isset($previous_url) && $previous_url != '' && $previous_url != '/admin/login') ? '?previous-url=' . $previous_url : null;
                 return redirect()->to('/admin/login' . $previous_url);
             }
         }
 
-        return $next($request);
+        $role = MarketplaceUsersRoles::where('user_id', '=', \Auth::user()->id)->first();
+
+        if (isset($role) && count($role) > 0) {
+
+            if ($role->role_id == 1) {
+                return $next($request);
+            }
+        }
+
+        return redirect()->to('/admin/login')
+            ->withErrors('ACCESS DENIED');
+
     }
 }
