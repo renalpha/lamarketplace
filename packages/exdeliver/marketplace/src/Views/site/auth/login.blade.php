@@ -28,7 +28,7 @@
                 </div>
                 <div class="etc-login-form">
                     <p>{{ __('marketplace::user.forgot_account') }} <a
-                                href="#">{{ __('marketplace::elements.click_here') }}</a></p>
+                                href="/user/request-password">{{ __('marketplace::elements.click_here') }}</a></p>
                 </div>
                 {!! Form::hidden('previous_url', \Request::get('previous-url')) !!}
                 {!! Form::close() !!}

@@ -3,6 +3,8 @@
 namespace Exdeliver\Marketplace\Controllers;
 
 use App\Http\Controllers\Controller;
+use Exdeliver\Marketplace\Models\MarketplaceVendorInfo;
+use Exdeliver\Marketplace\Requests\EditCustomerFormRequest;
 use Exdeliver\Marketplace\Requests\LoginFormRequest;
 use Exdeliver\Marketplace\Services\MarketplaceUserService;
 use Illuminate\Http\Request;
@@ -80,5 +82,51 @@ class MarketplaceAdminController extends Controller
         return redirect()
             ->to('/admin/login')
             ->with('status', trans('marketplace::user.logged_out'));
+    }
+
+    public function getAccount()
+    {
+        if (isset(\Auth::user()->customer)) {
+            $account_type = \Auth::user()->customer;
+        } elseif (\Auth::user()->vendor) {
+            $account_type = \Auth::user()->vendor;
+        }
+
+        $account_type = (isset($account_type)) ? $account_type->first() : null;
+
+        $account_type = (isset($account_type)) ? $account_type->contact : null;
+
+        return view('marketplace::site.auth.account')
+            ->with('account', \Auth::user())
+            ->with('account_type', $account_type);
+    }
+
+    /**
+     * save account information
+     */
+    public function account(EditCustomerFormRequest $request)
+    {
+
+        // check for vendors
+        if (isset(\Auth::user()->customer)) {
+            $account_type = \Auth::user()->customer;
+        } elseif (\Auth::user()->vendor) {
+            $account_type = \Auth::user()->vendor;
+        }
+
+        if(isset($account_type) && count($account_type) == 0) {
+            $result = $this->userservice->registerVendor($request, ['user_id' => \Auth::user()->id]);
+        }
+
+        // change password if set
+        $this->userservice->changePassword($request);
+
+        $vendor_info = MarketplaceVendorInfo::where('vendor_id', '=', \Auth::user()->vendor->first()->id)->first();
+
+        $result = $this->userservice->registerVendorInfo($vendor_info, $request);
+
+        return redirect()
+            ->back()
+            ->with('status', trans('marketplace::name_changed_successfully'));
     }
 }

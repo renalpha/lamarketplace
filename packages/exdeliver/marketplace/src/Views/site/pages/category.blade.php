@@ -26,7 +26,7 @@
                         <div class="clear"></div>
                         <hr class="purple"/>
                     @endif
-                    {!! $category->description !!}
+                    {{--{!! $category->description !!}--}}
                     <p><br/></p>
                     <div class="clear"></div>
                     <hr class="purple"/>

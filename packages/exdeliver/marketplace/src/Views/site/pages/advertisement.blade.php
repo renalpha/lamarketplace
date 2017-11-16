@@ -17,6 +17,10 @@
                 </div>
                 <div class="col-md-12 categories">
                     <h4>{!! $advertisement->title !!}</h4>
+                    @if(isset($advertisement->price))
+                    <p><strong>Vraagprijs: &euro; {!! number_format($advertisement->price,2) !!}</strong></p>
+                    @endif
+                    <hr class="purple">
                     {!! $advertisement->content !!}
                 </div>
             </div>

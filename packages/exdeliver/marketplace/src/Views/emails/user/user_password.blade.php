@@ -10,9 +10,9 @@
 <p style="box-sizing: border-box; color: #74787E; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.5em; margin-top: 0;"
    align="left">{{ trans('marketplace::user.email_templates.request_password.thank_you') }}</p>
 <p style="box-sizing: border-box; color: #74787E; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.5em; margin-top: 0;"
-   align="left">{{ trans('marketplace::user.email_templates.request_password.instructions') }}</p>
+   align="left">{{ trans('marketplace::user.email_templates.request_password.new_password') }}</p>
 <p style="box-sizing: border-box; color: #74787E; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.5em; margin-top: 0;"
-   align="left"><a href="{!! \Config::get('app.url').'/user/request-password?code='.date('YmdHis', strtotime($user->updated_at)).'&email='.$user->email !!}">{!! \Config::get('app.url').'/user/request-password?code='.date('YmdHis', strtotime($user->updated_at)).'&email='.$user->email !!}</a></p>
+   align="left">{{ (isset($password)) ? $password : null }}</p>
 @endslot
 
 @endcomponent

@@ -6,6 +6,7 @@ use App\User;
 use Exdeliver\Marketplace\Mail\RequestPassword;
 use Exdeliver\Marketplace\Models\MarketplaceCustomerBilling;
 use Exdeliver\Marketplace\Models\MarketplaceCustomers;
+use Exdeliver\Marketplace\Models\MarketplaceUsersRoles;
 use Exdeliver\Marketplace\Models\MarketplaceVendorInfo;
 use Exdeliver\Marketplace\Models\MarketplaceVendors;
 
@@ -31,7 +32,10 @@ class MarketplaceUserService
             $user->password = $input->password;
             $user->save();
 
-            return ['status' => true, 'user_id' => $result->id];
+            $role = 2; // vendor
+            $this->registerRole($user->id, $role);
+
+            return ['status' => true, 'user_id' => $user->id];
 
         } catch (\Exception $e) {
             return ['status' => false, 'message' => $e->getMessage()];
@@ -51,9 +55,11 @@ class MarketplaceUserService
 
     public function requestPassword($request = null)
     {
-        $user = MarketplaceService::getModel(new User())->where('email', $request->email)->first();
+
+        $user = \MarketplaceService::getModel(new User())->where('email', '=', $request->email)->first();
 
         if (isset($user)) {
+
             \Mail::to($user->email)->send(new RequestPassword($user));
 
             return ['status' => true, 'message' => trans('marketplace::user.confirmation_send_successfully')];
@@ -98,7 +104,7 @@ class MarketplaceUserService
         $customer_billing->save();
     }
 
-    public function registerVendor(Request $request, $params = null)
+    public function registerVendor($request, $params = null)
     {
         $vendor = new MarketplaceVendors();
         $vendor->user_id = $params['user_id'];
@@ -111,7 +117,7 @@ class MarketplaceUserService
         return $vendor->id;
     }
 
-    public function registerVendorInfo(MarketplaceVendorInfo $vendor_info, Request $request, $params = null)
+    public function registerVendorInfo(MarketplaceVendorInfo $vendor_info, $request, $params = null)
     {
         if (!isset($vendor_info->id)) {
             $vendor_info->created_at = date('Y-m-d H:i:s');
@@ -131,5 +137,38 @@ class MarketplaceUserService
 //        $vendor_info->country = $request->country;
 
         $vendor_info->save();
+    }
+
+    public function registerRole($user_id, $role_id)
+    {
+        try {
+            $role = new MarketplaceUsersRoles();
+            $role->user_id = $user_id;
+            $role->role_id = $role_id;
+            $role->created_at = date('Y-m-d H:i:s');
+            $role->updated_at = date('Y-m-d H:i:s');
+            $role->save();
+
+            return true;
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function changePassword($request)
+    {
+
+        $password = $request->password;
+        $password_confirmation = $request->password_confirmation;
+        if (isset($password) && $password != '' && isset($password_confirmation) && $password_confirmation != '' && $password == $password_confirmation && strlen($password) > 6) {
+            $password = \Hash::make($password);
+            $user = \App\User::where('id', '=', \Auth::user()->id)->firstOrFail();
+            $user->password = $password;
+            $user->save();
+
+            return true;
+        }
+
+        return false;
     }
 }

@@ -21,6 +21,11 @@ class MarketplaceCategories extends BaseModel
         return $this->hasMany(new MarketplaceCategories(), 'parent_id');
     }
 
+    public function getSubcategoriesAttribute()
+    {
+        return $this->childs()->get();
+    }
+
     public function setSlugAttribute($value)
     {
         try {

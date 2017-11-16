@@ -9,7 +9,7 @@ class CategoriesFormRequest extends FormRequest
         return [
             'title'       => 'required',
 //            'slug'        => 'required|unique:marketplace_categories,slug,' . $this->route('id'),
-            'description' => 'required',
+//            'description' => 'required',
         ];
     }
 

@@ -27,5 +27,12 @@ Route::group(['namespace' => 'Exdeliver\Marketplace\Controllers'], function () {
         Route::get('/register', 'MarketplaceSiteController@getRegister');
         Route::post('/register', 'MarketplaceSiteController@register');
         Route::get('/logout', 'MarketplaceSiteController@logout');
+        Route::get('/request-password', 'MarketplaceSiteController@getRequestPassword');
+        Route::post('/request-password', 'MarketplaceSiteController@requestpassword');
+
+        Route::group(['middleware' => ['web','auth']], function() {
+            Route::get('/my-account', 'MarketplaceAdminController@getAccount');
+            Route::post('/my-account', 'MarketplaceAdminController@account');
+        });
     });
 });

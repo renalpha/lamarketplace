@@ -32,6 +32,7 @@ return [
                                                 'request_password' => [
                                                     'thank_you'    => 'Thank you for requesting a new password.',
                                                     'instructions' => 'Please click the confirmation link below in order to receive a new password.',
+                                                    'new_password' => 'Down below you will find your new password.',
                                                 ],
     ],
 ];

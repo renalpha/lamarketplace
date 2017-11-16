@@ -24,7 +24,7 @@ class MarketplaceAdvertisements extends BaseModel
      */
     public function images()
     {
-        return $this->hasMany(new MarketplaceAdvertisementImages());
+        return $this->hasMany(new MarketplaceAdvertisementImages(), 'advertisement_id');
     }
 
     /**

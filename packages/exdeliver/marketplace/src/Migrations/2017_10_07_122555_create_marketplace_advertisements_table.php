@@ -15,6 +15,7 @@ class CreateMarketplaceAdvertisementsTable extends Migration
             $column->integer('vendor_id')->index();
             $column->string('title')->nullable();
             $column->string('slug');
+            $column->double('price');
             $column->string('filename')->nullable();
             $column->text('content',4294967295); //longtext for summernote supported images
             $column->timestamps();

@@ -18,11 +18,11 @@ class FromConfiguration{
 
     public function __construct()
     {
-        $this->email = 'info@exdeliver.com';
-        $this->name = 'EXdeliver';
-        $this->url = 'http://exdeliver.nl';
-        $this->address = 'Bentincklaan 57C';
-        $this->zipcode = '3039KJ Rotterdam, Nederland';
+        $this->email = 'info@grafi-fix.nl';
+        $this->name = 'Grafi Fix';
+        $this->url = 'http://grafi-fix.nl';
+        $this->address = 'Nieuwe klif 3';
+        $this->zipcode = '8321 DM Urk, Nederland';
         $this->config = ['address' => $this->email, 'name' => $this->name];
     }
 }

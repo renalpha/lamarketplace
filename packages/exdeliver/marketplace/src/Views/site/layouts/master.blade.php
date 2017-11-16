@@ -67,7 +67,28 @@
 {!! Html::script('summernote/dist/summernote.min.js') !!}
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.summernote').summernote();
+
+        $('.summernote').summernote({
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ],
+        });
+
+        $(".parent-category").mouseenter(function(event)
+        {
+            event.stopPropagation();
+            $(this).find('ul').toggle();
+        }).mouseleave(function(event)
+        {
+            event.stopPropagation();2
+            $(this).find('ul').toggle();
+        });
     });
 </script>
 </body>

@@ -10,7 +10,7 @@
 @stop
 
 @section('content')
-    {!! Form::open() !!}
+    {!! Form::open(['files' => true]) !!}
     @include('marketplace::admin.modules.marketplace.advertisements.elements._advertisement_form')
     {!! Form::close() !!}
 @stop

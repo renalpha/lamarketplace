@@ -10,6 +10,8 @@ class AdvertisementFormRequest extends FormRequest
             'title'   => 'required',
             'content' => 'required',
             'category_id' => 'required',
+            'files.*' => 'nullable|mimes:jpg,png',
+            'price' => 'required|regex:/^\d*(\.\d{1,2})?$/',
 //            'slug'    => 'required|unique:marketplace_advertisements,slug,' . $this->route('id'),
         ];
     }

@@ -37,7 +37,23 @@ nav {
 .categories li {
     list-style-type: none;
 }
-.categories ul {
+.categories > ul {
+    padding: 0;
+    float: left;
+    width: auto;
+    display: table;
+    margin: 0 20px 30px;
+    /*position: relative;*/
+    /*left: -20px;*/
+}
+
+.categories > ul:nth-child(5n)
+{
+    clear:both;
+}
+
+.categories ul li ul {
+    /*position: absolute;*/
     padding: 0;
 }
 

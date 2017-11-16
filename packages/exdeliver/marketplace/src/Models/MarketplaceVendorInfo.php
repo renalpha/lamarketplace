@@ -16,4 +16,14 @@ class MarketplaceVendorInfo extends BaseModel
     {
         return $this->firstname . ' ' . $this->lastname;
     }
+
+    public function getFirstNameAttribute()
+    {
+        return $this->attributes['firstname'];
+    }
+
+    public function getLastNameAttribute()
+    {
+        return $this->attributes['lastname'];
+    }
 }

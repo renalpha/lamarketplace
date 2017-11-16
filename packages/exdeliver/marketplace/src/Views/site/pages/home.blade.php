@@ -14,13 +14,14 @@
                     <h4>Rubrieken</h4>
                     @if(count(\MarketplaceService::getCategories()) > 0)
                         <?php
-                        $chunks_categories = \MarketplaceService::getCategories()->whereNull('parent_id')->getAll()->chunk(4);
+                        $chunks_categories = \MarketplaceService::getCategories()->whereNull('parent_id')->orderBy('priority')->getAll()->chunk(4);
                         ?>
                         @foreach($chunks_categories as $category_chunk)
                             <ul>
                                 @each('marketplace::site.layouts.elements._category_chunk', $category_chunk, 'category')
                             </ul>
                         @endforeach
+                        <div class="clear"></div>
                     @endif
                 </div>
             </div>

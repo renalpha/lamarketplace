@@ -5,6 +5,7 @@ namespace Exdeliver\Marketplace\Controllers;
 use App\Http\Controllers\Controller;
 use Exdeliver\Marketplace\Models\MarketplaceAdvertisements;
 use Exdeliver\Marketplace\Services\MarketplaceService;
+use Exdeliver\Marketplace\Services\MarketplaceAdvertisementService;
 use Exdeliver\Marketplace\Requests\AdvertisementFormRequest;
 
 class MarketplaceAdvertisementsController extends Controller
@@ -58,12 +59,19 @@ class MarketplaceAdvertisementsController extends Controller
 
         $advertisement->user_id = \Auth::user()->id;
         $advertisement->category_id = $request->category_id;
-        $advertisement->vendor_id = (isset($request->vendor_id)) ? $request->vendor_id : 1;
+        $advertisement->vendor_id = \Auth::user()->vendor()->first()->id;
         $advertisement->updated_at = date('Y-m-d H:i:s');
         $advertisement->title = $request->title;
         $advertisement->slug = str_slug($request->title);
         $advertisement->content = $request->content;
+        $advertisement->price = number_format($request->price,2);
         $advertisement->save();
+
+        $files = $request->files->all();
+        if(isset($files) && count($files['files']) > 0) {
+            $image_service = new MarketplaceAdvertisementService();
+            $image_service->imageupload($files['files'], $advertisement);
+        }
 
         if(isset($state))
         {
